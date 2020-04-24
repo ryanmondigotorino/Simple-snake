@@ -9,7 +9,7 @@
   <body>
     <div class="container">
       <h2>Player name: <strong class="playerName"></strong></h2>
-      <p style="font-size: 30px;">HighScore: <span id="highScore">0</span></p>
+      <p style="font-size: 30px;">HighScore: <span id="highScore">0 (name)</span></p>
       <p style="font-size: 30px;">Score: <span id="score">0</span></p>
       <div class="row">
         <div class="col-lg-2"></div>

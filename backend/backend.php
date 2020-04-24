@@ -23,17 +23,33 @@ class BackEnd {
   }
 
   public function get() {
-    $conn = self::dbConnection();
-    $sql = "SELECT MAX(score) FROM ".self::$table.";";
-    $result = $conn->query($sql);
-    $users = [];
-    if ($result->num_rows > 0) {
-      while($row = $result->fetch_assoc()) {
-        $users[] = $row;
+    try {
+      $conn = self::dbConnection();
+      $sql = "SELECT MAX(score) as score FROM ".self::$table.";";
+      $result = $conn->query($sql);
+      $users = [];
+      if ($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+          $users[] = $row;
+        }
       }
-
+      $score = $users[0]['score'];
+      $sql2 = "SELECT * FROM ".self::$table." WHERE score = $score;";
+      $result2 = $conn->query($sql2);
+      $users2 = [];
+      if ($result2->num_rows > 0) {
+        while($row = $result2->fetch_assoc()) {
+          $users2[] = $row;
+        }
+      }
+      header("Content-type: application/json; charset=utf-8");
+      echo json_encode([
+        'score' => $users[0]['score'],
+        'name' => $users2[0]['name'],
+      ], JSON_PRETTY_PRINT);
+    } catch (\Exception $error) {
+      echo $error;
     }
-    echo $users[0]['MAX(score)'];
   }
 
   public function insert() {

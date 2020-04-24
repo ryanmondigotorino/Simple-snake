@@ -10,7 +10,7 @@
       type: 'get',
       url: '/backend/backend.php',
     }).done((response) => {
-      $('span#highScore').html(response);
+      $('span#highScore').html(`${response.score} (${response.name})`);
     });
   }
   $('button.play-now').on('click', function() {
